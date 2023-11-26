@@ -1,0 +1,55 @@
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0.658em;
+  padding-top: 3em;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user, .check_rates {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.user > h2 {
+  font-weight: 400;
+  color: #202020;
+  font-size: 1.5rem;
+}
+
+.check_rates {
+  background-color: var(--alice-blue);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  color: var(--main-blue);
+  font-size: 0.9rem;
+}
+
+h3 {
+  margin-block-start: 1em;
+}
+
+.actions {
+  display: flex;
+  font-size: 0.8rem;
+  justify-content: space-around;
+  padding-block-start: 1em;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+  img {
+    width: 45px;
+  }
+}
+
