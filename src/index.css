@@ -58,6 +58,7 @@ form {
   padding: 0.5em 0em 0.5em 0.5em;
   background-color: #fff;
   border: 1px solid #caced1;
+  outline: 0.3px solid var(--light-gray);
   border-radius: 0.25rem;
   color: gray;
   cursor: pointer;
