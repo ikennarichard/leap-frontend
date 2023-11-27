@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import styles from './selectcountry.module.css';
+import styles from './selectcurrency.module.css';
 import { nanoid } from '@reduxjs/toolkit';
 
 
