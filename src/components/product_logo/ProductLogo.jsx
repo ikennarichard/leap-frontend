@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import styles from './logo.module.css'
 
 const ProductLogo = () => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img src="./leap_logo_blue.svg" alt="leap logo" />
-      <div className={styles.logo_text}>
+      <div className={`${styles.logo_text}`}>
         <span>swift.</span>
         <span>transparent.</span>
         <span>global.</span>
