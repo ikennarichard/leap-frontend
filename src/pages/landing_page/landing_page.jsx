@@ -1,35 +1,40 @@
-import { Link } from "react-router-dom";
-// import ProductLogo from "../components/ProductLogo";
-import SignIn from "../components/SignIn";
+import { useState, useEffect } from "react";
+import ProductLogo from "../../components/product_logo/ProductLogo";
+import OnBoading from "../../components/onboarding_screen/OnBoading";
 import styles from './landing_page.module.css'
 
 const LandingPage = () => {
+  const [showLogo, setShowLogo] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [showOnBoarding, setShowOnBoarding] = useState(false);
+
+  useEffect(() => {
+
+    const logoTimer = setTimeout(() => {
+      setShowLogo(false);
+      setShowWelcome(true);
+    }, 3500);
+
+    const onBoardingTimer = setTimeout(() => {
+      setShowWelcome(false);
+      setShowOnBoarding(true);
+    }, 7000);
+
+    return () => {
+      clearTimeout(logoTimer);
+      clearTimeout(onBoardingTimer);
+    };
+
+  }, [])
   return (
     <div className={styles.container}>
-      {/* <ProductLogo/> */}
-      {/* <h1>Welcome to Leap Finance</h1> */}
+      { showLogo && <ProductLogo /> }
+      
+      { showWelcome && 
+        <h1 className={styles.fadeIn}>Welcome to Leap Finance</h1> 
+      }
 
-      <div className={styles.call_to_action}>
-        <div className={styles.image}>
-        </div>
-        <div className="box">
-          <div className="line-container">
-            <span className="line-1 lines"></span>
-            <span className="line-2 lines"></span>
-            <span className="line-3 lines"></span>
-          </div>
-          <div className="text-container">
-            <h3 className="text-1 text">Your Gateway to Global Transactions</h3>
-            <h3 className="text-2 text">More Currencies, More Possibilities</h3>
-            <h3 className="text-3 text">Real-Time Rates, Real-Time Control</h3>
-          </div>
-        </div>
-
-        <div className={styles.links}>
-          <Link className={styles.started} to="/signup">Get Started</Link>
-          <SignIn/>
-        </div>
-      </div>
+      { showOnBoarding && <OnBoading/> }
     </div>
   )
 }
