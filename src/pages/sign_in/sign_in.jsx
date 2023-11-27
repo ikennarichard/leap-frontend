@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signin } from "../../redux/auth/apiSlice.js";
 import { Link } from "react-router-dom";
 import RegisterLink from "../../components/RegisterLink";
 import CustomButton from "../../components/CustomButton";
@@ -8,14 +10,17 @@ const Sign_In = () => {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const data ={
+      "email": emailRef.current.value,
+      "password": passwordRef.current.value
+    } 
 
-    console.log('Email:', email);
-    console.log('Password:', password);
+    dispatch(signin(data));
+    console.log(data)
 
     emailRef.current.value = '';
     passwordRef.current.value = '';
@@ -23,7 +28,7 @@ const Sign_In = () => {
 
   return (
     <div className={styles.container}>
-      <Link>
+      <Link to='/'>
         <img src="back-arrow.svg" alt="" />
       </Link>
 
@@ -36,7 +41,7 @@ const Sign_In = () => {
         />
       </div>
 
-      <form onSubmit={handleSignIn}>
+      <form method="post" onSubmit={handleSignIn}>
         <div>
           <div className="field">
             <label htmlFor="email">Email</label>
