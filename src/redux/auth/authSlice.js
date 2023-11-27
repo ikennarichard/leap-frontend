@@ -6,6 +6,7 @@ const initialState = {
     { name: 'United States', code: '+1', countryCode: 'us'},
     { name: 'United Kingdom', code: '+44', countryCode: 'gb' },
   ],
+  user: false,
 }
 
 export const authSlice = createSlice({
