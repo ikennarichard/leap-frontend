@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from "react"
-import SignInLink from "../components/SignIn";
+import { useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import RegisterLink from "../../components/RegisterLink";
 import InputCode from "../../components/InputCode";
+import CustomButton from "../../components/CustomButton";
 import RetryButton from "../../components/RetryButton";
-import styles from './signup.module.css'
-// import CustomSelect from "../components/CustomSelect";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import styles from './signup.module.css';
 
-const Signup = ({ countries }) => {
+
+const Signup = () => {
   const [userDetails, setUserDetails] = useState({
     firstname: '',
     lastname: '',
@@ -19,16 +20,18 @@ const Signup = ({ countries }) => {
     passwordConfirmation: '',
   });
   const [visible, setVisible] = useState(false);
+  const [error, setError] = useState(false);
   const [nxtVisible, setNxtVisible] = useState(false);
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const codeRef = useRef(null);
+
+  const countries = useSelector(state => state.auth.countries);
 
   let href = null;
   let text = null;
 
   const selectedCodeRef = useRef('');
-  const selectedCountryFlagRef = useRef('');
   const selectedCountryCodeRef = useRef('');
 
   const toggleVisibility = () => setVisible(prev => !prev);
@@ -48,13 +51,17 @@ const Signup = ({ countries }) => {
         (country) => country.name === value
       );
       selectedCodeRef.current = selectedCountry ? selectedCountry.code : '';
-      selectedCountryFlagRef.current = selectedCountry ? selectedCountry.flag : '';
       selectedCountryCodeRef.current = selectedCountry ? selectedCountry.countryCode : '';
     }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (Object.values(userDetails).some(value => value == '')){
+      setError(true);
+      return;
+    }
     
     const { 
       firstname, 
@@ -67,7 +74,6 @@ const Signup = ({ countries }) => {
       passwordConfirmation
       
       } = userDetails;
-
 
       if (password === passwordConfirmation) {
         const data = {
@@ -83,8 +89,7 @@ const Signup = ({ countries }) => {
         incrementStep()
         return data;
       } else {
-        console.log('Check password');
-        return false;
+        return;
       }
   };
 
@@ -108,45 +113,63 @@ const Signup = ({ countries }) => {
 
   const incrementStep = () => step < 4 ? setStep(prev => prev+=1) : null
   const decrementStep = () => step > 1 ? setStep(prev => prev-=1) : null
-  
+
+  const handleStep = () => {
+    step !== 3 ? incrementStep() : null;
+  }
 
   return (
-    <>
-    <button onClick={() => decrementStep()}>Back</button>   
+    <div className={styles.container}>
+    <button
+      className={`reset_btn ${styles.back_btn}`}
+      onClick={() => decrementStep()}
+    >
+      <img src="back-arrow.svg" alt="" />
+    </button>   
     { step !== 4 &&
       <>
-      <h2>Create an account</h2>
-      <SignInLink/>
+        <h2>Create an account</h2>
+        <RegisterLink 
+          question='Have an account?'
+          content='Log in'
+          link='/sign_in'
+        />
       </>
     }
       <div className={styles.stepView}>
-        <img src={href} />
+        <img src={href} className={styles.steps} />
         <span>{text}</span>
       </div> 
       
       {step !== 4 &&
       
       <form onSubmit={handleSubmit}>
+        {error && <small style={{
+          color: error ? 'tomato' : ''
+        }}>Please fill required field</small>
+        }
         {
           step === 1 && (
             <div className="field">
-            <label htmlFor="country">Country</label>
-            <div className={styles.custom_select}>
-              <select
-                name="country"
-                onChange={handleChange}
-                id="country"
-                required
-              >
-                <option value="" disabled selected>Select your country</option>
-                {countries.map((country, index) => (
-                  <option key={index} value={country.name}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
+              <label htmlFor="country">Country</label>
+              <div className={styles.custom_select}>
+                <select
+                  name="country"
+                  onChange={handleChange}
+                  onFocus={() => setError(false)}
+                  id="country"
+                  value={userDetails.country}
+                  required
+                >
+                  <option value="">Select your country</option>
+                  {countries.map((country, index) => (
+                    <option key={index} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
           )
         }
 
@@ -159,6 +182,7 @@ const Signup = ({ countries }) => {
                 type="text" 
                 name="firstname" 
                 id="firstname"
+                onFocus={() => setError(false)}
                 value={userDetails.firstname}
                 onChange={handleChange}
                 placeholder="Enter your first name"
@@ -172,6 +196,7 @@ const Signup = ({ countries }) => {
                 type="text" 
                 name="lastname" 
                 id="lastname"
+                onFocus={() => setError(false)}
                 value={userDetails.lastname}
                 onChange={handleChange}
                 placeholder="Enter your last name"
@@ -185,6 +210,7 @@ const Signup = ({ countries }) => {
                 type="email" 
                 name="email" 
                 id="email"
+                onFocus={() => setError(false)}
                 value={userDetails.email}
                 onChange={handleChange}
                 placeholder="Enter your email address"
@@ -205,6 +231,7 @@ const Signup = ({ countries }) => {
                 name="phone"
                 id="phone"
                 value={userDetails.phone}
+                onFocus={() => setError(false)}
                 onChange={handleChange}
                 placeholder="0710000"
                 required 
@@ -213,16 +240,13 @@ const Signup = ({ countries }) => {
 
             <div className="field">
               <label htmlFor="referral">Refeerral code <span>(optional)</span></label>
-              {/* <span className={
-                `fi fi-${selectedCountryCodeRef.current}`
-              }
-              ></span>  */}
               <span>{selectedCodeRef.current}</span>
 
               <input 
                 type="text"
                 name="referral"
                 id="referral"
+                onFocus={() => setError(false)}
                 value={userDetails.referral}
                 onChange={handleChange}
               />
@@ -249,6 +273,7 @@ const Signup = ({ countries }) => {
                   type={visible ? 'text' : 'password'} 
                   name="password" 
                   id="password"
+                  onFocus={() => setError(false)}
                   value={userDetails.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
@@ -264,6 +289,7 @@ const Signup = ({ countries }) => {
                   type={visible ? 'text' : 'password'}
                   name="passwordConfirmation" 
                   id="password_confirmation"
+                  onFocus={() => setError(false)}
                   value={userDetails.passwordConfirmation}
                   onChange={handleChange}
                   placeholder="Confirm your password"
@@ -273,16 +299,13 @@ const Signup = ({ countries }) => {
             </>
           )
         }
-        <button 
-          type={step !== 3 ? "button" : "submit"}
-          onClick={
-            step !== 3 ? 
-            () => incrementStep() : 
-            null
-          } 
-          >
-            Continue
-        </button>
+        <div className={styles.submitBtn}>
+          <CustomButton
+              type={step !== 3 ? "button" : "submit"}
+              onClick={handleStep}
+              content='Continue'
+            />
+        </div>
       </form>
       }
 
@@ -308,7 +331,7 @@ const Signup = ({ countries }) => {
           </section>
         )
       }
-    </>
+    </div>
   )
 }
 
