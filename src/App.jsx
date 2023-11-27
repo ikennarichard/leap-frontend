@@ -1,14 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import BaseLayout from "./components/BaseLayout";
+import BaseLayout from "./components/BaseLayout";
 // import ProfilePage from "./pages/profile_page";
-import BeneficiaryPage from "./pages/beneficiaries";
-import Signup from "./pages/signup";
+import BeneficiaryPage from "./pages/beneficiaries/beneficiaries";
+import Signup from "./pages/sign_up_page/signup";
+import Sign_In from "./pages/sign_in/sign_in";
 import Transfer from "./pages/transfer";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const router = createBrowserRouter([
   {
     path: '',
-    element: <BeneficiaryPage/>,
+    element: <BaseLayout/>,
     children: [
       {
         index: true,
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: 'signup',
+    path: 'sign_up',
     element: <Signup />
   },
 
