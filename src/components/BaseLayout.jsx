@@ -1,5 +1,6 @@
-// import { Outlet } from "react-router-dom";
-import LandingPage from "../pages/landing_page";
+import { Outlet } from "react-router-dom";
+import LandingPage from "../pages/landing_page/landing_page";
+import { useSelector } from "react-redux";
 
 const BaseLayout = () => {
 
@@ -7,9 +8,9 @@ const BaseLayout = () => {
 
   if (!user) return <LandingPage/>
   return (
-    <>
-      <LandingPage/>
-    </>
+    <main>
+      <Outlet/>
+    </main>
   )
 }
 
