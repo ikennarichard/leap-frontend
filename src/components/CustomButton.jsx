@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const CustomButton = ({ content, type }) => {
+const CustomButton = ({ content, type, onClick }) => {
   const styles =  {
     padding: '0.7em 5em',
     textAlign: 'center',
@@ -11,11 +11,14 @@ const CustomButton = ({ content, type }) => {
     cursor: 'pointer',
     margin: '0 auto'
   }
+
+  const handleClick = () => onClick()
   return (
     <button
       className="reset_btn"
       style={styles}
       type={type}
+      onClick={handleClick}
     >
       {content}
     </button>
