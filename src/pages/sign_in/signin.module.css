@@ -1,0 +1,44 @@
+.container {
+  padding: 1em 0.7em;
+  height: 100dvh;
+}
+
+h2 {
+  margin-block-start: 1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 55%;
+}
+
+.forgot_password {
+  align-self: flex-end;
+  margin-block-start: 1em;
+}
+
+.forgot_password > a {
+  text-decoration: none;
+  background-color: var(--alice-blue);
+  padding: 0.5em;
+  border-radius: 1em;
+} 
+
+.btn {
+  margin: 0 auto;
+}
+
+.password_field {
+  position: relative;
+}
+
+.eye_image {
+  width: 20px;
+  position: absolute;
+  bottom: 0;
+  top: 30px;
+  right: 10px;
+  cursor: pointer;
+}
