@@ -25,8 +25,8 @@ The primary goal is to offer a seamless experience for individuals and businesse
 ## Technologies Used
 
 * __Frontend__: React
-* __Backend__: SpringBoot
-* __Database__: []
+* __Backend__: SpringBoot Java
+* __Database__: PostgreSQl
 
 ## Features
 
@@ -74,8 +74,6 @@ git clone https://github.com/ikennarichard/front-end-interview.git
 Project is: _in progress_
 
 ## Room for Improvement
-
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
 Room for improvement:
 
