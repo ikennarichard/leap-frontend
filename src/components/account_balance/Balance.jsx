@@ -1,88 +1,83 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './balance.module.css'
-import Naira from '../currencies/Naira';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import * as l from '../utils/utils';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
+import { nanoid } from '@reduxjs/toolkit';
 
 const AccountBalance = () => {
   const [visible, setVisible] = useState(false);
+  const accounts = useSelector(state => state.account.accounts);
 
-  const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
-
-  const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
-  };
-
-  const handleTouchMove = (event) => {
-    touchEndX.current = event.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current && touchEndX.current) {
-      const difference = touchStartX.current - touchEndX.current;
-
-      if (difference > 50) {
-        console.log('Swiped left');
-      } else if (difference < -50) {
-        console.log('Swiped right');
-      }
-    }
-
-    // Reset touch X values
-    touchStartX.current = null;
-    touchEndX.current = null;
-  };
-
-  
   return (
-    <>
-    <div 
-      className={styles.container}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+    <div className='swiper-container'>
+    <Swiper
+      pagination={{
+        dynamicBullets: false,
+        el: '.custom-pagination-position'
+      }}
+      modules={[Pagination]}
     >
-      <div className={styles.flag}>
-        <span className="fi fi-ng"></span>NGN
-      </div>
-      <div className={styles.balance}>
-        <div>
-          <small>Available balance</small>
-          <h2>{visible ? <Naira amount={5000}/> : 'XXXXXXXXX'}</h2>
-        </div>
-        <button 
-          onClick={() => setVisible(prev => !prev)}
-          className='reset_btn'
-          > 
-          <img 
-            src={visible ? 'eye-slash.svg' : 'eye.svg'} 
-            alt=""
-             />{visible ? 'Hide' : 'Show'}
-          </button>
-      </div>
-      <div  className={styles.icons}>
-        <div>
-          <a href=""><img src="send.svg" alt="" /></a>
-          <p>Send</p>
-        </div>
-        <div>
-          <a href=""><img src="recieve.svg" alt="" /></a>
-          <p>Recieve</p>
-        </div>
-        <div>
-          <a href=""><img src="exchange.svg" alt="" /></a>
-          <p>Exchange</p>
-        </div>
-      </div>
+    {
+      Object.keys(accounts).map((acc) => (
 
-      <div className={styles.pending_balance}>
-        <p>
-          Pending balance: 
-          <Naira amount={5000}/>
-        </p>
+        <SwiperSlide
+          key={nanoid()}
+        >
+        <div 
+        className={styles.container}
+        
+          >
+        <div className={styles.flag}>
+          <span className={`fi fi-${accounts[acc].countryCode}`}></span>
+          {accounts[acc].currencyCode}
+        </div>
+        <div className={styles.balance}>
+          <div>
+            <small>Available balance</small>
+            <h2>
+              {visible ? l.getAmountByCurrencyType(accounts[acc].currency, 
+              accounts[acc].balance) 
+            : 'XXXXXXXXX'}
+            </h2>
+          </div>
+          <button 
+            onClick={() => setVisible(prev => !prev)}
+            className={`reset_btn ${styles['show-hide-btn']}`}
+            > 
+            <img 
+              src={visible ? 'eye-slash.svg' : 'eye.svg'} 
+              alt=""
+              />{visible ? 'Hide' : 'Show'}
+            </button>
+        </div>
+        <div  className={styles.icons}>
+
+            <Link 
+              className={`reset-link ${styles['transfer-link']}`}
+              to='transfer'
+            >
+              <img src="send.svg" alt="" />
+              <p>Transfer</p>
+            </Link>
+            
+          
+          <div>
+            <div><img src="exchange.svg" alt="" /></div>
+            <p>Exchange</p>
+          </div>
+        </div>
       </div>
+      </SwiperSlide>
+      ))
+    }
+    </Swiper>
+    <div className='custom-pagination-position'></div>
     </div>
-  </>
   )
 }
 
