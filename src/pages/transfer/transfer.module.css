@@ -1,0 +1,28 @@
+.custom_select {
+  position: relative;
+}
+
+.custom_select > select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  outline: none;
+  border-radius: 0.25rem;
+  color: gray;
+  cursor: pointer;
+}
+
+.custom_select::before {
+  content: url("./arrow-down.svg");
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.custom_select::before {
+  top: 50%;
+}
