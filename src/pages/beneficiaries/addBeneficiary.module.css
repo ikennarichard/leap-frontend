@@ -1,0 +1,10 @@
+.modal {
+  margin-block-start: 1em;
+}
+
+.add-beneficiary-form {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
