@@ -3,16 +3,16 @@
   height: 100dvh;
 }
 
-h2 {
+/* h2 {
   margin-block-start: 1em;
-}
+} */
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 55%;
-}
+} */
 
 .forgot_password {
   align-self: flex-end;

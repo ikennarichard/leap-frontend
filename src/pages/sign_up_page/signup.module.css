@@ -1,9 +1,9 @@
-form {
+/* form {
   display: flex;
   flex-direction: column;
   align-content: flex-end;
   gap: 1em;
-}
+} */
 
 .container {
   padding: 0.7em;
@@ -16,12 +16,6 @@ form {
   margin-block-start: 1em;
 }
 
-.back_btn  {
-  background: none;
-  margin-block-start: 0.5em;
-  cursor: pointer;
-}
-
 .steps {
   transition: all 1s ease;
 }
@@ -30,7 +24,7 @@ form {
   position: relative;
 }
 
-select {
+.custom_select > select {
   appearance: none;
   -webkit-appearance: none;
   width: 100%;
