@@ -1,8 +1,14 @@
-section {
+.avatar {
+  width: 45px;
+}
+
+.profile_container {
+  position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 1em;
-  padding: 0.658em;
+  padding: 2em 1.2em;
   padding-top: 3em;
 }
 
@@ -32,24 +38,53 @@ section {
   font-size: 0.9rem;
 }
 
-h3 {
+/* h3 {
   margin-block-start: 1em;
+} */
+
+.more-action {
+  margin-block-start: 0.3em;
 }
 
 .actions {
   display: flex;
   font-size: 0.8rem;
-  justify-content: space-around;
-  padding-block-start: 1em;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5em;
-  }
-  img {
-    width: 45px;
-  }
+  justify-content: space-between;
+  padding-block-start: 0.4em;
 }
 
+.actions > div, .actions :is(a) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.actions :is(div > p, a > span) {
+  font-weight: bold;
+}
+
+.recent-transactions {
+  margin-block-start: 2em;
+  list-style: none;
+}
+
+.recent-transactions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.see-all {
+  display: flex;
+  align-items: center;
+}
+
+.see-all > span {
+  color: var(--main-blue);
+}
+
+.recent-transactions-heading > h2 {
+  font-size: 1.2em;
+}
