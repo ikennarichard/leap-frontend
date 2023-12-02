@@ -1,0 +1,37 @@
+.newAccountForm {
+  display: grid;
+  align-items: center;
+}
+
+.form-btn {
+  margin: 0 auto;
+  margin-block-start: 1em;
+}
+
+.options {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em;
+}
+
+.flag-icon {
+  border-radius: 1.2em;
+}
+
+.currencyCode {
+  color: var(--main-gray);
+  font-size: 0.8rem;
+  font-weight: light;
+}
+
+.options label {
+  font-weight: bold;
+}
+
+.options input {
+  align-self: center;
+  transform: scale(1.7);
+}
+
