@@ -10,7 +10,7 @@
   animation-delay: 600s;
 }
 
-img {
+.leap_logo {
   transition: all 1s ease-in-out;
 }
 
