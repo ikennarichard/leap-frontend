@@ -1,48 +1,28 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import AddBeneficiaryModal from "../components/AddBeneficiaryModal";
-import SelectCountry from "../components/SelectCountry";
+import { useState, useEffect } from "react";
+import PageHeading from "../../components/PageHeading.jsx/PageHeading";
+import AddBeneficiaryModal from "./AddBeneficiaryModal";
+import SearchComponent from "../../components/SearchComponent";
 import styles from './beneficiaries.module.css'
+import { useSelector } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
 
-const BeneficiaryPage= ({ countries }) => {
-  const [beneficiaries, setBeneficiaries] = useState([
-    {
-      fullName: 'Tom Foster',
-      bankName: 'Leap Africa',
-      country: 'Nigeria',
-      accountNumber: '022000202',
-    }
-  ]);
+const Beneficiaries = () => {
+  const beneficiaries = useSelector(state => 
+    state.beneficiaries.beneficiaries);
   const [showModal, setShowModal] = useState(false);
-
-  const addBeneficiary = (newBeneficiary) => {
-    setBeneficiaries([...beneficiaries, newBeneficiary]);
-    closeModal();
-  };
+  const [filteredBeneficiaries, setFilteredBeneficiaries] = useState(beneficiaries);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handleModal = () => {
-    if (showModal) {
-      closeModal();
-    } else {
-      // navigate to profile page
-    }
-  }
+  useEffect(() => {
+    setFilteredBeneficiaries(beneficiaries);
+  }, [beneficiaries]);
 
   return (
-    <section>
-      <div className={styles.heading}>
-        <button 
-          className={`reset_btn`}
-          onClick={handleModal}
-        >
-          <img src="back-arrow.svg" alt="" />
-        </button>
-        <h2>Beneficaries</h2>
-      </div>
-
+    <section className={styles['beneficiaries-container']}>
+      <PageHeading link='/' heading='Beneficiaries' />
       { !showModal && (
         <>
           <button 
@@ -55,22 +35,30 @@ const BeneficiaryPage= ({ countries }) => {
           </button>
 
           {/* list of beneficiaries */}
-            <ul>
+            <ul className={styles['beneficiaries-list']}>
               <div className={styles.list_heading}>
                 <b>My beneficiaries</b>
-                <SelectCountry/>
+                <SearchComponent 
+                  data={beneficiaries} 
+                  setData={setFilteredBeneficiaries} 
+                />
               </div>
               {
-                beneficiaries.map((b) => (
-                  <li key={crypto.randomUUID()}>
-                    <div>
-                      <b>{b.fullName}</b>
-                      <p>{b.bankName}</p>
-                      <p>{b.accountNumber}</p>
+                filteredBeneficiaries.length ? filteredBeneficiaries.map((b) => (
+                  <li key={nanoid()}>
+                    <div className={styles['list-item']}>
+                      <div>
+                        <b>{b.fullName}</b>
+                        <p>{b.bankName.toUpperCase()}</p>
+                        <p>{b.accountNumber}</p>
+                      </div>
+                      <img 
+                        src="arrow-down.svg" 
+                        className={styles['down-arrow']}/>
                     </div>
-                    <img src="arrow-down.svg" alt="" />
+                    <hr className={styles['hr-line']} />
                   </li>
-                ))
+                )) : <p>Beneficiary not available</p>
               }
             </ul>
             </>
@@ -79,11 +67,7 @@ const BeneficiaryPage= ({ countries }) => {
           {
             showModal && (
               <div>
-                <AddBeneficiaryModal
-                  handleAddBeneficiary = {addBeneficiary}
-                  handleModal={closeModal}
-                  countries={countries}
-                />
+                <AddBeneficiaryModal closeModal={closeModal}/>
               </div>
             )
           }
@@ -91,4 +75,4 @@ const BeneficiaryPage= ({ countries }) => {
   )
 }
 
-export default BeneficiaryPage;
+export default Beneficiaries;

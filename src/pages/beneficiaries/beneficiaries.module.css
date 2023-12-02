@@ -1,18 +1,8 @@
-section {
-  padding: 2em 0.68em;
+.beneficiaries-container {
+  padding: 2em 1em;
   display: flex;
   flex-direction: column;
-  gap: 2em;
-}
-
-.heading {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-
-  button {
-    background: none;
-  }
+  gap: 1.5em;
 }
 
 .add_beneficiary {
@@ -29,32 +19,43 @@ section {
   cursor: pointer;
 }
 
-ul {
+.beneficiaries-list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
 
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-block-start: 2em;
+.list_heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
 
-    div > p {
-      color: var(--main-gray);
-      font-size: 0.9rem;
-    }
+.beneficiaries-list :is(.list-item) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: 1.2em;
+}
 
-    div > b {
-      font-weight: 400;
-    }
 
-    img {
-      transform: rotate(-90deg);
-    }
-  }
+.list-item > div > p {
+  color: var(--main-gray);
+  font-size: 0.9rem;
+}
 
-  .list_heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.list-item > div  > b {
+  font-size: 1.2rem;
+}
+
+.hr-line {
+  margin-block-start: 1em;
+  border: 0.3px solid whitesmoke;
+}
+
+.down-arrow {
+  filter: invert(82%) sepia(2%) 
+  saturate(16%) hue-rotate(0deg) 
+  brightness(101%) contrast(103%);
 }
