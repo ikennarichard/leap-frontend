@@ -6,7 +6,7 @@ const BaseLayout = () => {
 
   const user = useSelector(state => state.auth.user);
 
-  if (!user) return <LandingPage/>
+  if (user) return <LandingPage/>
   return (
     <main>
       <Outlet/>
