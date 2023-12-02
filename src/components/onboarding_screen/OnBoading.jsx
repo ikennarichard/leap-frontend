@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import styles from './onboarding.module.css'
-import SignIn from "../RegisterLink";
+import RegisterLink from "../../components/RegisterLink";
 
 const OnBoading = () => {
   return (
@@ -38,7 +38,11 @@ const OnBoading = () => {
               className={styles.started} 
               to="/sign_up">Get Started
             </Link>
-            <SignIn/>
+            <RegisterLink
+              question='Have you opened an account?'
+              content='Log in'
+              link=''
+            />
           </div>
         </div>
       </div>
