@@ -1,0 +1,9 @@
+.back_arrow {
+  width: 45px;
+}
+
+.back_btn  {
+  background: none;
+  margin-block-start: 0.5em;
+  cursor: pointer;
+}
