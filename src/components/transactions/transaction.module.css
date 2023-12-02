@@ -1,0 +1,56 @@
+.transactions_list > li {
+  margin-block-start: 2em;
+  list-style: none;
+}
+
+.transaction_link, 
+.transaction_link:visited, 
+.transaction_link:active {
+  text-decoration: none;
+  color: initial;
+}
+
+/* .transaction_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.transaction_type {
+  width: 45px;
+}
+
+.transaction_details {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-block-start: 1em;
+}
+
+.details {
+  text-wrap: pretty;
+}
+
+.dot {
+  display: inline-block;
+  font-weight: 700;
+  color: black;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-inline-start: 0.3em;
+  transform: translateY(-30%);
+}
+
+.amount {
+  margin-inline-start: 0.3em;
+}
+
+.details > small {
+  color: var(--main-gray);
+}
+
+.hr_line {
+  margin-top: 1em;
+  border: 0.3px solid whitesmoke;
+}
