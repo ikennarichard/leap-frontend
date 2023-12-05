@@ -1,3 +1,7 @@
+.form__transfer label {
+  color: var(--main-blue);
+}
+
 .custom_select {
   position: relative;
 }
@@ -25,4 +29,25 @@
 
 .custom_select::before {
   top: 50%;
+}
+
+.amount__transfer {
+  position: relative; 
+}
+
+.amount__transfer input[name="amount"] {
+  padding-inline-start: 2em;
+}
+
+.amount__transfer__symbol {
+  position: absolute;
+  top: 1.45em;
+  left: 0;
+  color: var(--main-blue);
+  background-color: var(--light-gray);
+  text-align: center;
+  padding-block-start: 0.5em;
+  height: 2.25em;
+  width: 1.5em;
+  border-radius: 0.09em;
 }
