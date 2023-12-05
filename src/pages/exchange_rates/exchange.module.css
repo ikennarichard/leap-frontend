@@ -1,0 +1,56 @@
+.container {
+  padding: 2em 0.68em;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+}
+
+.exchange_heading {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.last_update {
+  font-weight: bold;
+}
+
+.exchange_currency {
+  box-shadow: 0px 1px 20px 0px rgb(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  border-radius: 0.8em;
+}
+
+.exchange_currency > p {
+  color: var(--main-gray);
+}
+
+.exchange_list_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 1em;
+}
+
+
+.switch_btn {
+  background-color: var(--anti-flash-white);
+  padding: 0.4em 0.8em;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.exchange_conversion > p {
+  font-weight: bold;
+}
+
+.exchange_conversion > small {
+  color: var(--main-gray);
+  margin-inline-start: 3px;
+}
