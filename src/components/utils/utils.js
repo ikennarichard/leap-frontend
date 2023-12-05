@@ -57,6 +57,35 @@ export const formatDate = (date) => {
   }).format(date).replace(',', '').split(' ').join('-');
 }
 
+export const getCurrencySymbol = (currency) => {
+  let locale;
+  if (locale !== null) {
+    switch(currency) {
+    case 'CAD', 'USD':
+      locale = 'en-US'
+      break
+    case 'GBP':
+      locale = 'en-UK'
+      break
+    case 'CNY':
+      locale = 'zh-Hans-CN'
+      break
+    case 'NGN':
+      locale = 'en-NG'
+      break
+    default:
+      locale = null
+    }
+  }
+  if (locale !== null) {
+    return (0).toLocaleString(locale, { style: 'currency', currency, 
+  minimumFractionDigits: 0, maximumFractionDigits: 0 }).
+  replace(/\d/g, '').trim()
+  } else {
+    return null;
+  }
+}
+
 
 export const getAmountByCurrencyType = (currency, amount) => {
 
@@ -73,40 +102,51 @@ export const getAmountByCurrencyType = (currency, amount) => {
       case 'canadian dollar':
         return canadianDollars(amount)
       default:
-        return 'Invalid currency'
+        return 0
     }
   } else {
-    return 'No currency available'
+    return 0
   }
  
 }
 
 export const calculateTransactionFee  = 
-(type, currency, amount) => {
+(currency, amount) => {
   
   const fee = 0.002;
-  
-  if (type === 'credit') {
-    return '0.00';
-  } else {
-    switch(currency.toLowercase()) {
-      case 'dollar':
-        return Dollar((amount) * fee)
-      case 'naira':
-        return Naira((amount) * fee)
-      default:
-        return '0.00'
-    } 
-  }
+
+  switch(currency) {
+    case 'dollar':
+      return Dollar((amount) * fee)
+    case 'naira':
+      return Naira((amount) * fee)
+    case 'yen':
+      return Yen((amount) * fee)
+    case 'pounds':
+      return Pounds((amount) * fee)
+    case 'canadian dollar':
+      return canadianDollars((amount) * fee)
+    default:
+      return 0
+  } 
 }
 
 export const generateRandomReferenceNumber = () => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = `
+  ABCDEFGHIJKLMNOPQRSTUVWXYZabcde
+  fghijklmnopqrstuvwxyz0123456789`;
+  
   let result = '';
 
   for (let i = 0; i < 22; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
+    result += characters.charAt(Math.floor(Math.random() * 
+    characters.length));
   }
 
   return result;
+}
+
+export const getCurrentDate = () => {
+  const currentDate = new Date().toISOString().slice(0, 10);
+  return currentDate;
 }
