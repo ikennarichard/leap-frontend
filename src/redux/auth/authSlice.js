@@ -3,39 +3,51 @@ import { signin, signup } from './apiSlice';
 
 const initialState = {
   countries: [
-    { label: 'Nigeria', code: '+234', currency: 'naira',
-      value: 'ng', currencyCode: 'NGN'
+    { name: 'Nigeria', code: '+234', currency: 'naira',
+      countryCode: 'ng', currencyCode: 'NGN'
     },
 
-    { label: 'United States', code: '+1', currency: 'dollar', 
-      value: 'us', currencyCode: 'USD'
+    { name: 'United States of America', code: '+1', currency: 'dollar', 
+      countryCode: 'us', currencyCode: 'USD'
     },
 
-    { label: 'China', code: '+44', currency: 'yen', 
-      value: 'cn', currencyCode: 'CNY' 
+    { name: 'China', code: '+44', currency: 'yen', 
+      countryCode: 'cn', currencyCode: 'CNY' 
     },
 
-    { label: 'Canada', code: '+1', currency: 'canadian dollar', 
-      value: 'ca', currencyCode: 'CAD'
+    { name: 'Canada', code: '+1', currency: 'canadian dollar', 
+      countryCode: 'ca', currencyCode: 'CAD'
     },
 
-    { label: 'United Kingdom', code: '+44', currency: 'pounds', 
-      value: 'gb', currencyCode: 'GBP' 
+    { name: 'United Kingdom', code: '+44', currency: 'pounds', 
+      countryCode: 'gb', currencyCode: 'GBP' 
     },
   ],
 
   banks: {
-    us: [
-      { label: 'Chase Bank', value: 'chase' },
-      { label: 'Bank of America', value: 'boa' },
+    "United States of America": [
+      { name: 'Chase Bank', bankAbbr: 'chase' },
+      { name: 'Bank of America', bankAbbr: 'boa' },
     ],
-    ng: [
-      { label: 'Access Bank', value: 'ab' },
-      { label: 'Fidelity Bank', value: 'fb' },
+    "Nigeria": [
+      { name: 'Access Bank', bankAbbr: 'ab' },
+      { name: 'Fidelity Bank',bankAbbr: 'fb' },
+      { name: 'United Bank of Africa', bankAbbr: 'fb' },
     ],
-    cn: [
-      { label: 'Hongkong and Shanghai Bank', value: 'hsbc' },
-      { label: 'Bank of China', value: 'boc' },
+
+    "United Kingdom": [
+      { name: 'Barclays', bankAbbr: 'barclays' },
+      { name: 'Standard Chartered Plc', bankAbbr: 'scplc' },
+    ],
+
+    "China": [
+      { name: 'Bank of China', bankAbbr: 'boc' },
+      { name: 'Hongkong and Shanghai Bank', bankAbbr: 'hsbc' },
+    ],
+
+    "Canada": [ 
+    { name: 'Royal Bank of Canada', bankAbbr: 'rbc' },
+    { name: 'Toronto-Dominion Bank', bankAbbr: 'td' },
     ],
   },
 

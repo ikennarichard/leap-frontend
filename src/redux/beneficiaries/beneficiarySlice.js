@@ -3,21 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   beneficiaries: [
     {
-      fullName: 'Tom Foster',
+      id: 1,
+      name: 'Tom Foster',
       country: 'Nigeria',
-      bankName: 'united bank of africa',
+      bankName: 'United Bank of Africa',
       accountNumber: '125116202',
     },
     {
-      fullName: 'Amina Ahmed',
+      id: 2,
+      name: 'Amina Ahmed',
       country: 'United States of America',
-      bankName: 'bank of america',
+      bankName: 'Bank of America',
       accountNumber: '125116309',
     },
     {
-      fullName: 'Frank Zyen',
+      id: 3,
+      name: 'Frank Zyen',
       country: 'China',
-      bankName: 'bank of china',
+      bankName: 'Bank of China',
       accountNumber: '125116429',
     },
   ]

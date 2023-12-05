@@ -60,10 +60,16 @@ export const accountSlice = createSlice({
   reducers: {
     addNewAccount: (state, action) => {
       const { accountKey } = action.payload;
-      state.accounts[accountKey.countryCode] = action.payload.accountKey },
+      state.accounts[accountKey.countryCode] = action.payload.accountKey 
+    },
+
+    adjustAmount: (state, action) => {
+      const { countryCode, amount } = action.payload;
+      state.accounts[countryCode].balance = state.accounts[countryCode].balance - amount;
+    },
   }
 });
 
-export const { addNewAccount } = accountSlice.actions
+export const { addNewAccount, adjustAmount } = accountSlice.actions
 
 export default accountSlice.reducer

@@ -29,12 +29,12 @@ export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1
+    addTransaction: (state, action) => {
+      state.transactions.push(action.payload)
     },
   }
 });
 
-export const { increment } = transactionsSlice.actions
+export const { addTransaction } = transactionsSlice.actions
 
 export default transactionsSlice.reducer
