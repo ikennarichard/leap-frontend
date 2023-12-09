@@ -131,10 +131,8 @@ export const calculateTransactionFee  =
   } 
 }
 
-export const generateRandomReferenceNumber = () => {
-  const characters = `
-  ABCDEFGHIJKLMNOPQRSTUVWXYZabcde
-  fghijklmnopqrstuvwxyz0123456789`;
+export const generateReferenceNumber = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   
   let result = '';
 
