@@ -9,7 +9,7 @@ const SearchComponent = ({ data, setData }) => {
   }
 
   const filterData = query => {
-    const filteredData = data.filter(item => item.fullName.toLowerCase().includes(query.toLowerCase()));
+    const filteredData = data.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
     setData(filteredData);
   }
 
