@@ -32,10 +32,15 @@ export const beneficiariesSlice = createSlice({
   reducers: {
     addBeneficiary: (state, action) => {
       state.beneficiaries.push(action.payload);
+    },
+
+    removeBeneficiary: (state, action) => {
+      state.beneficiaries = state.beneficiaries.filter((beneficiary) => 
+        beneficiary.id !== action.payload)
     }
   }
 });
 
-export const { addBeneficiary } = beneficiariesSlice.actions
+export const { addBeneficiary, removeBeneficiary } = beneficiariesSlice.actions
 
 export default beneficiariesSlice.reducer
