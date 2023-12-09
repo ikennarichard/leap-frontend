@@ -45,7 +45,6 @@ const AddBeneficiaryModal = ({ closeModal }) => {
       bankName: '',
       accountNumber: '',
     });
-    console.log(data);
     closeModal();
   }
   return (
