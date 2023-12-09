@@ -39,11 +39,34 @@ const TransactionTracker = () => {
             t.amount)}
           </strong>
         </div>
-          <img src="/transactions/transfer.svg" alt="" />
+          <img src={t.transactionType === 'credit' ? 
+          '/transactions/transfer.svg' : '/transactions/payment.svg'} 
+          alt="" 
+          />
       </div>
       <hr className={styles.hr_line}/>
 
       <ul className={styles.transaction_list}>
+        {
+          t.transactionType === 'debit' ? 
+          <>            
+            <li>
+              <small>Recipient Name</small>
+              <span>{t.recipientName}</span>
+            </li>
+
+            <li>
+              <small>Recipient Bank</small>
+              <span>{t.recipientBank}</span>
+            </li>
+
+            <li>
+              <small>Recipient Country</small>
+              <span>{t.recipientCountry}</span>
+            </li>
+          </>
+          : null
+        }
         <li>
           <small>Date & Time</small> 
           <span>
@@ -52,14 +75,14 @@ const TransactionTracker = () => {
         </li>
         <li>
           <small>Transaction type</small>
-          <span>Transfer</span>
+          <span>{t.transactionType}</span>
         </li>
+
         <li>
           <small>Transaction fees</small>
           <span>
             {
-              l.calculateTransactionFee(t.transactionType, 
-              t.transactionCurrency, t.amount)
+              l.getAmountByCurrencyType(t.transactionCurrency, t.transactionFee)
             }
             </span>
         </li>
