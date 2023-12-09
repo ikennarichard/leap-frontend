@@ -1,3 +1,18 @@
+.container__form__transfer {
+  padding: 1.5em 0.5em;
+}
+
+.form__transfer {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-block-start: 1em;
+}
+
+.form__transfer > button[type='submit'] {
+  margin: 0 auto;
+}
+
 .form__transfer label {
   color: var(--main-blue);
 }
