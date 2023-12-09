@@ -64,6 +64,13 @@ const initialState = {
       "pounds": 1.21,
       "yen": 2.24,
       "canadian dollar": 3.25,
+    },
+
+    "yen": {
+      "naira": 950,
+      "pounds": 0.9,
+      "dollar": 1.2,
+      "canadian dollar": 1.12,
     } 
   },
 
