@@ -1,20 +1,36 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PageHeading from "../../components/PageHeading.jsx/PageHeading";
 import AddBeneficiaryModal from "./AddBeneficiaryModal";
 import SearchComponent from "../../components/SearchComponent";
 import styles from './beneficiaries.module.css'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeBeneficiary } from "../../redux/beneficiaries/beneficiarySlice";
 import { nanoid } from "@reduxjs/toolkit";
 
 const Beneficiaries = () => {
   const beneficiaries = useSelector(state => 
     state.beneficiaries.beneficiaries);
-  const [showModal, setShowModal] = useState(false);
-  const [filteredBeneficiaries, setFilteredBeneficiaries] = useState(beneficiaries);
+  const [addBeneficiaryForm, setAddBeneficiaryForm] = useState(false);
+  const [filteredBeneficiaries, setFilteredBeneficiaries] = 
+  useState(beneficiaries);
+  const [onDelete, setOnDelete] = useState(false);
+  const beneficiaryId = useRef();
+  const dispatch = useDispatch();
 
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  const openBeneficaryForm = () => setAddBeneficiaryForm(true);
+  const closeBeneficiaryForm = () => setAddBeneficiaryForm(false);
+
+  // delete beneficiary
+  const openModal = (id) => {
+    beneficiaryId.current = id;
+    setOnDelete(true);
+  }
+
+  const handleDelete = (id) => {
+    dispatch(removeBeneficiary(id));
+    setOnDelete(false);
+  }
 
   useEffect(() => {
     setFilteredBeneficiaries(beneficiaries);
@@ -23,14 +39,14 @@ const Beneficiaries = () => {
   return (
     <section className={styles['beneficiaries-container']}>
       <PageHeading link='/' heading='Beneficiaries' />
-      { !showModal && (
+      { !addBeneficiaryForm && (
         <>
           <button 
             type="button" 
-            onClick={openModal}
+            onClick={openBeneficaryForm}
             className={`reset_btn ${styles.add_beneficiary}`}
           >
-            <img src="add-square.svg" alt="" />
+            <img src="add-square.svg" alt="square icon" />
             Add a Beneficiary
           </button>
 
@@ -48,26 +64,55 @@ const Beneficiaries = () => {
                   <li key={nanoid()}>
                     <div className={styles['list-item']}>
                       <div>
-                        <b>{b.fullName}</b>
+                        <b>{b.name}</b>
                         <p>{b.bankName.toUpperCase()}</p>
                         <p>{b.accountNumber}</p>
+                        <p>{b.country}</p>
                       </div>
-                      <img 
-                        src="arrow-down.svg" 
-                        className={styles['down-arrow']}/>
+                      <div className={styles['trash__container']}>
+                        <img
+                          src="trash.svg"
+                          className={styles['trash']}
+                          onClick={() => openModal(b.id)}
+                        />
+                      </div>
                     </div>
                     <hr className={styles['hr-line']} />
                   </li>
-                )) : <p>Beneficiary not available</p>
+                )) : <p>No beneficiaries added yet</p>
               }
             </ul>
             </>
             )}
 
           {
-            showModal && (
+            addBeneficiaryForm && (
               <div>
-                <AddBeneficiaryModal closeModal={closeModal}/>
+                <AddBeneficiaryModal closeModal={closeBeneficiaryForm}/>
+              </div>
+            )
+          }
+
+          {
+            onDelete && (
+              <div className={styles['delete__modal']}>
+                <div>
+                  <p>Confirm delete?</p>
+                  <div className={styles['container__modal__buttons']}>
+                    <button 
+                      className={styles['button__confirm__delete']}
+                      onClick={() => handleDelete(beneficiaryId.current)}
+                    >
+                      Yes
+                    </button>
+                    <button 
+                      onClick={() => setOnDelete(false)}
+                      className={styles['button_cancel_delete']}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             )
           }
