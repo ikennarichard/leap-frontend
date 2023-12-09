@@ -39,6 +39,10 @@
   margin-block-start: 1.2em;
 }
 
+.beneficiaries-list > li {
+  transition: 1s all ease-in-out;
+}
+
 
 .list-item > div > p {
   color: var(--main-gray);
@@ -54,8 +58,53 @@
   border: 0.3px solid whitesmoke;
 }
 
-.down-arrow {
-  filter: invert(82%) sepia(2%) 
-  saturate(16%) hue-rotate(0deg) 
-  brightness(101%) contrast(103%);
+.trash {
+  cursor: pointer;
+}
+
+.trash:hover {
+  filter: brightness(0) saturate(100%) invert(63%) sepia(80%) 
+  saturate(4198%) hue-rotate(332deg) brightness(101%) contrast(100%);
+}
+
+.delete__modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.308);
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.delete__modal > div {
+  background-color: whitesmoke;
+  display: grid;
+  place-items: center;
+  height: 100px;
+  width: 200px;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.container__modal__buttons {
+  display: flex;
+  gap: 0.6em;
+}
+
+.container__modal__buttons > button {
+  padding: 0.6em 1em;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.3em;
+}
+
+.container__modal__buttons > button:nth-child(1) {
+  background-color: #112344;
+}
+
+.container__modal__buttons > button:nth-child(2) {
+  background-color: #ff234f;
 }
