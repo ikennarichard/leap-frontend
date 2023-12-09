@@ -7,6 +7,7 @@ import { adjustAmount } from "../../redux/account/accountSlice";
 import * as l from '../../components/utils/utils';
 import Select from "react-select";
 import { nanoid } from "@reduxjs/toolkit";
+import PageHeading from "../../components/PageHeading.jsx/PageHeading";
 
 const Transfer = () => {
   const [senderCurrency, setSenderCurrency] = useState('naira');
@@ -19,6 +20,7 @@ const Transfer = () => {
   const [error, setError] = useState(false);
   const [transactionAmount, setTransactonAmount] = useState(0)
   const amountRef = useRef(null);
+  const beneficiaryRef = useRef(null);
   const countryCodeRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -65,6 +67,7 @@ const Transfer = () => {
    } else if (name === 'selected_beneficiary') {
     const index = banks[countryName].findIndex(option => option.name === selected.value.bankName);
     setBankIndex(index);
+    beneficiaryRef.current = selected.value;
    }
   }
 
@@ -83,11 +86,14 @@ const Transfer = () => {
     const data = {
       "id": nanoid(),
       "transactionType": 'debit',
-      "senderName": 'Ikenna Richard',
-      "transactionCurrency": senderCurrency, 
+      "recipeintName": beneficiaryRef.current.name,
+      "recipeintBank": beneficiaryRef.current.bankName,
+      "recipeintCountry": beneficiaryRef.current.country,
+      "transactionCurrency": senderCurrency,
+      "transactionFee": l.calculateTransactionFee(senderCurrency, transactionAmount),
       "amount": transactionAmount,
       "transactionDate": l.getCurrentDate(),
-      "referenceNumber": l.generateRandomReferenceNumber()
+      "referenceNumber": l.generateReferenceNumber()
     }
     
     dispatch(addTransaction(data));
@@ -95,8 +101,8 @@ const Transfer = () => {
   };
 
   return (
-    <div>
-      <h2>Transfer</h2>
+    <div className={styles['container__form__transfer']}>
+      <PageHeading link='/' heading='Transfer'/>
       <form 
         onSubmit={handleSubmit}
         className={styles['form__transfer']}
