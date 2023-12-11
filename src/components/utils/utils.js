@@ -61,8 +61,11 @@ export const getCurrencySymbol = (currency) => {
   let locale;
   if (locale !== null) {
     switch(currency) {
-    case 'CAD', 'USD':
+    case 'USD':
       locale = 'en-US'
+      break
+    case 'CAD':
+      locale = 'en-CA'
       break
     case 'GBP':
       locale = 'en-UK'
