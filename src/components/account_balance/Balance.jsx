@@ -52,6 +52,7 @@ const AccountBalance = () => {
             <img 
               src={visible ? 'eye-slash.svg' : 'eye.svg'} 
               alt=""
+              className={styles['icon__show__balance']}
               />{visible ? 'Hide' : 'Show'}
             </button>
         </div>
