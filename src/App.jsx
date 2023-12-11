@@ -5,7 +5,7 @@ import Beneficiaries from "./pages/beneficiaries/beneficiaries";
 import Signup from "./pages/sign_up_page/signup";
 import Sign_In from "./pages/sign_in/sign_in";
 import Accounts from "./pages/accounts/accounts";
-// import ExchangeRates from "./pages/exchange_rates/exchange";
+import ExchangeRates from "./pages/exchange_rates/exchange";
 import Transfer from "./pages/transfer/transfer";
 import Transactions from "./components/transactions/Transactions";
 import TransactionsList from "./components/transactions/TransactionsList";
@@ -46,6 +46,11 @@ const router = createBrowserRouter([
       {
         path: 'beneficiaries',
         element: <Beneficiaries />,
+      },
+
+      {
+        path: 'rates',
+        element: <ExchangeRates />,
       },
 
       {
