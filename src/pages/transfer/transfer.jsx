@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from './transfer.module.css';
 import CustomButton from "../../components/CustomButton";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransaction } from "../../redux/transactions/transactionSlice";
 import { adjustAmount } from "../../redux/account/accountSlice";
+import { getRates } from "../../redux/exchange_rates/apiSlice";
 import * as l from '../../components/utils/utils';
 import Select from "react-select";
 import { nanoid } from "@reduxjs/toolkit";
@@ -13,6 +14,7 @@ const Transfer = () => {
   const [senderCurrency, setSenderCurrency] = useState('naira');
 
   const [currencyCode, setCurrencyCode] = useState('NGN');
+  const [formSuccess, setFormSuccess] = useState(false);
 
   const [recipientCurrency, setRecipientCurrency] = useState('');
   const [countryName, setCountryName] = useState('Nigeria');
@@ -22,6 +24,7 @@ const Transfer = () => {
   const amountRef = useRef(null);
   const beneficiaryRef = useRef(null);
   const countryCodeRef = useRef(null);
+  const recipientCurrencyCodeRef = useRef();
   const dispatch = useDispatch();
 
   //redux states
@@ -29,7 +32,7 @@ const Transfer = () => {
   const { countries, banks } = useSelector(state => state.auth);
   const beneficiaries= useSelector(state => 
     state.beneficiaries.beneficiaries);
-  const rates = useSelector(state => state.auth.exchangeRates);
+  const { conversionRates } = useSelector(state => state.rate);
 
     // Map custom options to required options format for react-select
     const countryOptions = countries.map((c) => ({
@@ -52,6 +55,10 @@ const Transfer = () => {
       value: ben
     }))
 
+    useEffect(() => {
+      dispatch((getRates(currencyCode)))
+    }, [currencyCode]);
+
 
   // handle change for the react select library
 
@@ -63,6 +70,7 @@ const Transfer = () => {
     countryCodeRef.current = selected.value.countryCode;
    } else if (name === 'recipient_currency') {
     setRecipientCurrency(selected.value.currency)
+    recipientCurrencyCodeRef.current = selected.value.currencyCode
     setCountryName(selected.value.name)
    } else if (name === 'selected_beneficiary') {
     const index = banks[countryName].findIndex(option => option.name === selected.value.bankName);
@@ -80,25 +88,40 @@ const Transfer = () => {
       setTransactonAmount(value);
     }
   }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      "id": nanoid(),
-      "transactionType": 'debit',
-      "recipeintName": beneficiaryRef.current.name,
-      "recipeintBank": beneficiaryRef.current.bankName,
-      "recipeintCountry": beneficiaryRef.current.country,
-      "transactionCurrency": senderCurrency,
-      "transactionFee": l.calculateTransactionFee(senderCurrency, transactionAmount),
-      "amount": transactionAmount,
-      "transactionDate": l.getCurrentDate(),
-      "referenceNumber": l.generateReferenceNumber()
+  
+    // Check if all required fields are present before proceeding
+    if (
+      !beneficiaryRef.current ||
+      !beneficiaryRef.current.name ||
+      !beneficiaryRef.current.bankName ||
+      !beneficiaryRef.current.country ||
+      !senderCurrency ||
+      !transactionAmount
+    ) {
+      console.error('Required information is missing.');
+      return;
     }
-    
+  
+    const data = {
+      id: nanoid(),
+      transactionType: 'debit',
+      recipeintName: beneficiaryRef.current.name,
+      recipeintBank: beneficiaryRef.current.bankName,
+      recipeintCountry: beneficiaryRef.current.country,
+      transactionCurrency: senderCurrency,
+      transactionFee: l.calculateTransactionFee(senderCurrency, transactionAmount),
+      amount: transactionAmount,
+      transactionDate: l.getCurrentDate(),
+      referenceNumber: l.generateReferenceNumber(),
+    };
+  
     dispatch(addTransaction(data));
-    dispatch(adjustAmount({countryCode: countryCodeRef.current, amount: transactionAmount}))
+    dispatch(adjustAmount({ countryCode: countryCodeRef.current, amount: transactionAmount }));
+    setFormSuccess(prev => !prev);
   };
+  
 
   return (
     <div className={styles['container__form__transfer']}>
@@ -131,20 +154,13 @@ const Transfer = () => {
             />
           </div>
           <p className="exchangeView">
-            { 
-              recipientCurrency !== '' ? 
-              <small>Exchange: {
+    
+            <small>Exchange: {
                 l.getAmountByCurrencyType(senderCurrency, 1)
                 } = </small> 
-              : ''
-            }
             <small>
               {
-              recipientCurrency &&
-                rates[senderCurrency] &&
-                rates[senderCurrency][recipientCurrency]
-                  ? l.getAmountByCurrencyType(recipientCurrency, 
-                    rates[senderCurrency][recipientCurrency])
+              conversionRates ? conversionRates[recipientCurrencyCodeRef.current]
                   : "Exchange rate unavailable"}
             </small>
           </p>
@@ -174,7 +190,8 @@ const Transfer = () => {
             type="num"
             name="amount"
             placeholder="Enter Amount"
-            value={l.getAmountByCurrencyType(recipientCurrency, (transactionAmount * rates[senderCurrency][recipientCurrency]) || transactionAmount)}
+            value={l.getAmountByCurrencyType(recipientCurrency, (transactionAmount * (recipientCurrencyCodeRef.current ?
+            conversionRates[recipientCurrencyCodeRef.current] : 0)) || transactionAmount)}
             readOnly
           />
         </div>
@@ -226,6 +243,16 @@ const Transfer = () => {
           type='submit'
         />
       </form>
+      {
+        formSuccess ? 
+        <div
+          className={styles['message__form__success']}
+          onClick={() => setFormSuccess(prev => !prev)}
+        >
+          <p>Transfer Successful</p>
+        </div>
+        : null
+      }
     </div>
   )
 }
