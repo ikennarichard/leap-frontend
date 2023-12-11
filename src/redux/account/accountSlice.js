@@ -29,7 +29,7 @@ const initialState = {
         currencyCode: 'CNY',
         countryCode: 'cn',
         accountNumber
-      }
+      },     
     },
 
     // accounts you can add for now.
@@ -65,7 +65,8 @@ export const accountSlice = createSlice({
 
     adjustAmount: (state, action) => {
       const { countryCode, amount } = action.payload;
-      state.accounts[countryCode].balance = state.accounts[countryCode].balance - amount;
+      state.accounts[countryCode].balance = state.accounts[countryCode].
+      balance - amount;
     },
   }
 });
