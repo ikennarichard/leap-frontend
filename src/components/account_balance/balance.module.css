@@ -35,11 +35,11 @@
 
 .show-hide-btn {
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.77rem;
   cursor: pointer;
-  color: var(--dull-gray);
+  color: var(--main-blue);
   border-radius: 1em;
-  padding: 0.6em 0.8em;
+  padding: 0.3em 0.5em;
   display: flex;
   align-items: center;
   gap: 3px;
@@ -47,7 +47,8 @@
 }
 
 .show-hide-btn > img {
-  width: 18px;
+  width: 15px;
+  filter: invert(12%) sepia(59%) saturate(4585%) hue-rotate(223deg) brightness(88%) contrast(95%);
 }
 
 .pending_balance {
