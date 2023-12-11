@@ -40,7 +40,7 @@ const Transaction = ({t, path}) => {
             }
           </strong>
           {t.transactionType === `debit` && ` 
-          to ${t.recipeintName}`}
+          to ${t.recipientName}`}
         </p>
 
         <small>{`Bank Transfer`}</small>
