@@ -9,7 +9,8 @@ const ProfilePage = () => {
 
   const transactions = useSelector(state => state.transactions.transactions);
 
-    const sortedTransactions = Array.from(transactions).sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate)).slice(0, 5);
+    const sortedTransactions = Array.from(transactions).sort((a, b) => 
+    new Date(b.transactionDate) - new Date(a.transactionDate)).slice(0, 5);
   
   return (
     <section className={styles['profile_container']}>
@@ -24,7 +25,7 @@ const ProfilePage = () => {
         </div>
         <div className={styles.check_rates}>
           <img src="see_rates_icon.svg" />
-          <small>See rates</small>
+          <Link className='reset-link' to='rates'><small>See rates</small></Link>
         </div>
       </div>
       <AccountBalance/>
