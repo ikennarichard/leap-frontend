@@ -19,10 +19,16 @@ body {
   font-family: 'Bricolage Grotesque', sans-serif;
   min-height: 100dvh;
   overflow-x: hidden;
+  display: grid;
+  place-content: center;
+  background-color: dimgray;
 }
 
 main {
-  width: 100%;
+  width: 375px;
+  height: 100%;
+  border: 1px solid cadetblue;
+  background-color: #fff;
 }
 
 h1 {
