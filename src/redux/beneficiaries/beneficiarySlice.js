@@ -4,21 +4,21 @@ const initialState = {
   beneficiaries: [
     {
       id: 1,
-      name: 'Tom Foster',
+      fullName: 'Tom Foster',
       country: 'Nigeria',
       bankName: 'United Bank of Africa',
       accountNumber: '125116202',
     },
     {
       id: 2,
-      name: 'Amina Ahmed',
+      fullName: 'Amina Ahmed',
       country: 'United States of America',
       bankName: 'Bank of America',
       accountNumber: '125116309',
     },
     {
       id: 3,
-      name: 'Frank Zyen',
+      fullName: 'Frank Zyen',
       country: 'China',
       bankName: 'Bank of China',
       accountNumber: '125116429',
