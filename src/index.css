@@ -21,13 +21,12 @@ body {
   overflow-x: hidden;
   display: grid;
   place-content: center;
-  background-color: dimgray;
 }
 
 main {
   width: 375px;
   height: 100%;
-  border: 1px solid cadetblue;
+  border: 1px solid rgb(239, 239, 239);
   background-color: #fff;
 }
 
