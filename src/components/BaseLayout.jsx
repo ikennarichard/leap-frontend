@@ -1,12 +1,24 @@
 import { Outlet } from "react-router-dom";
 import LandingPage from "../pages/landing_page/landing_page";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const BaseLayout = () => {
 
-  const user = useSelector(state => state.auth.user);
+  const [user, setUser] = useState(false);
 
-  if (user) return <LandingPage/>
+  useEffect(() => {
+
+    setTimeout(() => setUser(true), 8000)
+    return () => {
+      clearTimeout()
+    }
+  }, [])
+
+  if (!user) {
+    return <LandingPage/>
+  }
+
+
   return (
     <main>
       <Outlet/>
