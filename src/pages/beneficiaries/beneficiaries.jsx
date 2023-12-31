@@ -64,7 +64,7 @@ const Beneficiaries = () => {
                   <li key={nanoid()}>
                     <div className={styles['list-item']}>
                       <div>
-                        <b>{b.name}</b>
+                        <b>{b.fullName}</b>
                         <p>{b.bankName.toUpperCase()}</p>
                         <p>{b.accountNumber}</p>
                         <p>{b.country}</p>
