@@ -82,6 +82,10 @@
 
 .message__form__success > p {
   background-color: whitesmoke;
+  text-align: center;
   padding: 1em;
-  translate: 0 -10em;
+  font-size: 1.5rem;
+  width: 200px;
+  height: 100px;
+  border-radius: 5px;
 }

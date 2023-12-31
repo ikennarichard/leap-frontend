@@ -51,7 +51,7 @@ const Transfer = () => {
     }))
 
     const beneficiaryOptions = beneficiaries.filter((b) => b.country === countryName).map((ben) => ({
-      label:`${ben.name} - ${ben.accountNumber}`,
+      label:`${ben.fullName} - ${ben.accountNumber}`,
       value: ben
     }))
 
@@ -94,7 +94,7 @@ const Transfer = () => {
     // Check if all required fields are present before proceeding
     if (
       !beneficiaryRef.current ||
-      !beneficiaryRef.current.name ||
+      !beneficiaryRef.current.fullName ||
       !beneficiaryRef.current.bankName ||
       !beneficiaryRef.current.country ||
       !senderCurrency ||
