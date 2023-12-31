@@ -85,6 +85,7 @@ To do:
 
 * This project was inspired by [Kluster Africa](https://www.kluster.africa/klusterthon)
 * Many thanks to [STUTERN](https://www.stutern.com)
+* Much appreciation to valerie for the inspiring design [Valerie](https://www.behance.net/valerieizuagbe)
 
 ## Authors
 
