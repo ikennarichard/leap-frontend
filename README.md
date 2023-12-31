@@ -25,8 +25,6 @@ The primary goal is to offer a seamless experience for individuals and businesse
 ## Technologies Used
 
 * __Frontend__: React
-* __Backend__: SpringBoot Java
-* __Database__: PostgreSQl
 
 ## Features
 
@@ -64,7 +62,6 @@ git clone https://github.com/ikennarichard/front-end-interview.git
 
 ## Usage
 
-* Sign up or log in to your account.
 * Add beneficiaries for money transfers.
 * Check real-time exchange rates before initiating transfers.
 * Track your transactions to monitor the status and delivery of funds.
@@ -91,17 +88,9 @@ To do:
 
 ## Authors
 
-1. **Author 1**
+1. **Author**
 
-* [Valerie]()
-
-2. **Author 2**
-
-* [Frank]()
-
-3. **Author 3**
-
-* [Richard]()
+* [Richard](https://github.com/ikennarichard)
 
 ## License
 
