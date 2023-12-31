@@ -2,7 +2,7 @@
 
 Leap is a web app designed to facilitate easy and efficient money transfers across borders. It provides users with real-time exchange rate information, low transaction fees, and swift delivery of funds.
 
-> Live demo [_here_](https://www.example.com).
+> Live demo [_here_](https://bucolic-semifreddo-0570e6.netlify.app/).
 
 ## Table of Contents
 
